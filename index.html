@@ -46,43 +46,58 @@
         <section class="hero" id="home">
             <div class="container hero__inner">
                 <div class="hero__text">
-                    <p class="hero__greeting">Bienvenue chez</p>
-                    <h1 class="hero__name">Mnémosyne</h1>
-                    <p class="hero__tagline">Sciences · Données · Solutions</p>
-                    <p class="hero__sub">Consultant programmeur-statisticien — je mêle business, informatique et
+                            <p class="hero__greeting">Bienvenue chez</p>
+                    <div class="hero__brand">
+                        <div class="hero__logo-wrap">
+                            <img src="assets/img/logo_SP_contour_20250831.ico" alt="Logo Mnémosyne" class="hero__logo-big" />
+                        </div>
+                        <div class="hero__brand-text">
+                            <h1 class="hero__name">Mnémosyne</h1>
+                            <p class="hero__tagline">Sciences · Données · Solutions</p>
+                        </div>
+                        </div>
+                        <p class="hero__sub">Je mêle business, informatique et
                         sciences pour des solutions logicielles éprouvées et adaptées à vos besoins métiers.</p>
                     <div class="hero__cta">
-                        <a href="#products" class="btn btn--primary">Voir les applications</a>
-                        <a href="assets/docs/cv_scientist_richardWilfried_20260522.pdf" download
-                            class="btn btn--outline">↓ Télécharger le CV</a>
+                        <a href="#products" class="btn btn--primary">📦 Voir les applications</a>
+                        <a href="#contact" class="btn btn--outline">📩 Me contacter</a>
                     </div>
                 </div>
+<!-- Colonne 3 : Diagramme -->
                 <div class="hero__visual">
                     <div class="mermaid" id="diagram-hero"></div>
                 </div>
+
             </div>
         </section>
+
+        <!-- Filigrane Fibonacci : centré entre HERO et PROFIL -->
+        <div class="fib-watermark" aria-hidden="true">
+            <img src="assets/img/C841_fibonacci_plein_20260605.svg" alt="" />
+        </div>
 
         <!-- ====== PROFIL ====== -->
         <section class="section" id="about">
             <div class="container">
-                <h2 class="section__title">Profil</h2>
+                <h2 class="section__title">👤 Profil</h2>
                 <div class="about__grid">
-                    <div class="about__avatar">
-                        <img src="https://avatars.githubusercontent.com/WyloW2Ricard0"
-                            alt="Photo de profil de Richard Wilfried" width="200" height="200" loading="lazy" />
-                    </div>
                     <div class="about__content">
-                        <h3>RICHARD Wilfried — Programmeur-Statisticien</h3>
+                        <h3>RICHARD Wilfried — Programmeur-Statisticien 📊</h3>
                         <p>Programmeur-statisticien, je dispose de très bonnes capacités d'analyse et scientifiques.
                             Mon parcours complet mêlant <strong>business</strong>, <strong>informatique</strong>
                             et <strong>sciences</strong> me permet d'intervenir efficacement sur des secteurs variés.
                         </p>
                         <p>Le consulting constitue pour moi un environnement naturel, par la volonté d'apporter mon
                             assistance avec des <em>solutions éprouvées et adaptées aux besoins métiers</em>.
-                            Je m'adapte rapidement grâce à une vision transversale unique.</p>
+                            Je m'adapte rapidement grâce à une vision transversale unique. 🚀</p>
                         <div class="about__actions">
                             <a href="#contact" class="btn btn--primary">📩 Me contacter</a>
+                        </div>
+                    </div>
+                    <div class="about__avatar">
+                        <div class="about__avatar-wrap">
+                            <img src="https://avatars.githubusercontent.com/WyloW2Ricard0" alt="Photo de profil de RICHARD Wilfried"
+                                width="200" height="200" loading="lazy" />
                         </div>
                     </div>
                 </div>
@@ -123,29 +138,36 @@
             </div>
         </section>
 
-        <!-- ====== PROJETS OPEN SOURCE ====== -->
-        <section class="section section--alt" id="projects">
-            <div class="container">
-                <h2 class="section__title">Projets Open Source</h2>
-                <p class="section__sub">Dépôts publics récents depuis GitHub.</p>
-                <div class="projects__grid" id="projects-grid">
-                    <div class="project-card project-card--placeholder">
-                        <div class="project-card__icon">📁</div>
-                        <h3>Chargement…</h3>
-                    </div>
-                </div>
-                <div class="projects__more">
-                    <a href="https://github.com/WyloW2Ricard0?tab=repositories" target="_blank"
-                        rel="noopener noreferrer" class="btn btn--outline">Tous les dépôts →</a>
-                </div>
-            </div>
-        </section>
-
         <!-- ====== CONTACT ====== -->
         <section class="section" id="contact">
             <div class="container contact__inner">
                 <h2 class="section__title">📩 Contact</h2>
                 <p>Un projet, une mission, une question ? Voici ce que vous devez savoir :</p>
+
+                <!-- FORMULAIRE FORMSPREE -->
+                <form class="contact__form" action="https://formspree.io/f/xwpbgknz" method="POST" aria-label="Formulaire de contact">
+                    <div class="contact__form-row">
+                        <div class="contact__form-group">
+                            <label for="cf-name">👤 Nom</label>
+                            <input type="text" id="cf-name" name="name" placeholder="RICHARD Wilfried" required autocomplete="name" />
+                        </div>
+                        <div class="contact__form-group">
+                            <label for="cf-email">📧 E-mail</label>
+                            <input type="email" id="cf-email" name="email" placeholder="vous@exemple.com" required
+                                autocomplete="email" />
+                        </div>
+                    </div>
+                    <div class="contact__form-group">
+                        <label for="cf-subject">📌 Sujet</label>
+                        <input type="text" id="cf-subject" name="subject" placeholder="Mission, devis, question…" required />
+                    </div>
+                    <div class="contact__form-group">
+                        <label for="cf-message">💬 Message</label>
+                        <textarea id="cf-message" name="message" rows="5" placeholder="Décrivez votre besoin…" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn--primary contact__submit">📩 Envoyer le message</button>
+                    <p class="contact__form-notice">Réponse sous 48h · Données transmises via Formspree (chiffrement HTTPS)</p>
+                </form>
 
                 <!-- RAPPEL CODE PROFIL -->
                 <div class="code-window contact__code">
