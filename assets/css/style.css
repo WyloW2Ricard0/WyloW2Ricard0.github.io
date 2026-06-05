@@ -22,8 +22,9 @@
     --color-muted: #8b949e;
     --radius: 0.75rem;
     --transition: 0.2s ease;
-    --font-sans: 'Inter', system-ui, sans-serif;
-    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    --font-sans: Consolas, 'Courier New', monospace;
+    --font-mono: 'JetBrains Mono', Consolas, monospace;
+    --font-title: 'Bauhaus 93', Bungee, 'Bungee', Impact, sans-serif;
     --max-w: 1100px;
 }
 
@@ -227,6 +228,8 @@ img {
 .hero__name {
     font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 700;
+    font-family: var(--font-title);
+    letter-spacing: 0.05em;
     line-height: 1.1;
     margin-bottom: 0.75rem;
 }
@@ -323,6 +326,8 @@ img {
 .section__title {
     font-size: clamp(1.5rem, 3vw, 2rem);
     font-weight: 700;
+    font-family: var(--font-title);
+    letter-spacing: 0.04em;
     margin-bottom: 0.5rem;
     position: relative;
     display: inline-block;
@@ -539,6 +544,8 @@ img {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    font-family: var(--font-title);
+    letter-spacing: 0.04em;
 }
 
 .nav__logo-img {
