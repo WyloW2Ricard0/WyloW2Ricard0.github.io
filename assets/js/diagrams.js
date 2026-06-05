@@ -151,7 +151,6 @@ const DIAGRAMS_DEFS = {
         id8c1["OLAP Cube (SQL Server)"]
       id8d["Non-Relational DB (NoSQL)"]
         MongoDB`,
-
     'diagram-hero': `graph LR
     A[🗄️ Données] --> B((Mnémosyne))
     C[💼 Métier] --> B
@@ -160,35 +159,6 @@ const DIAGRAMS_DEFS = {
     style B fill:#58a6ff,color:#0d1117,stroke:#58a6ff
     style E fill:#3fb950,color:#0d1117,stroke:#3fb950`,
 
-    'diagram-consulting': `flowchart LR
-    A[Besoin client] --> B[Audit]
-    B --> C[Analyse données]
-    C --> D[Modélisation]
-    D --> E[Prototype]
-    E --> F{Validation}
-    F -- OK --> G[Livraison]
-    F -- Révision --> D
-    G --> H[Support]`,
-
-    'diagram-scrum': `flowchart TD
-    PB[Product Backlog] --> SP[Sprint Planning]
-    SP --> SB[Sprint Backlog]
-    SB --> Dev[Sprint 2 semaines]
-    Dev --> SR[Sprint Review]
-    SR --> RT[Rétrospective]
-    RT --> PB
-    SR --> Prod[Livraison]`,
-
-    'diagram-stats': `flowchart LR
-    Raw[Données brutes] --> Clean[Nettoyage]
-    Clean --> EDA[Analyse exploratoire]
-    EDA --> Desc[Stats descriptives]
-    EDA --> Hyp[Tests d hypothèses]
-    Desc --> Model[Modélisation]
-    Hyp --> Model
-    Model --> Val[Validation R²]
-    Val --> Viz[Visualisation]
-    Viz --> Report[Rapport]`,
 };
 
 // Injecter les définitions dans les éléments DOM
