@@ -32,11 +32,6 @@
                 <li><a href="#projects">Projets</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <a href="assets/docs/cv_scientist_richardWilfried_20260522.pdf" download
-                class="btn btn--primary btn--sm nav__cta">↓&nbsp;CV</a>
-            <button class="nav__toggle" aria-label="Menu" aria-expanded="false">
-                <span></span><span></span><span></span>
-            </button>
         </nav>
     </header>
 
@@ -142,7 +137,11 @@
         <section class="section" id="contact">
             <div class="container contact__inner">
                 <h2 class="section__title">📩 Contact</h2>
-                <p>Un projet, une mission, une question ? Voici ce que vous devez savoir :</p>
+                <p>Un projet, une mission, une question ? Voici ce que vous devez savoir :<br />
+                    Réponse sous 48h · Données transmises via Formspree (chiffrement HTTPS)</p>
+                
+                <!-- GRILLE : FORMULAIRE | CODE PROFIL -->
+                <div class="contact__cols">
 
                 <!-- FORMULAIRE FORMSPREE -->
                 <form class="contact__form" action="https://formspree.io/f/xwpbgknz" method="POST" aria-label="Formulaire de contact">
@@ -166,7 +165,6 @@
                         <textarea id="cf-message" name="message" rows="5" placeholder="Décrivez votre besoin…" required></textarea>
                     </div>
                     <button type="submit" class="btn btn--primary contact__submit">📩 Envoyer le message</button>
-                    <p class="contact__form-notice">Réponse sous 48h · Données transmises via Formspree (chiffrement HTTPS)</p>
                 </form>
 
                 <!-- RAPPEL CODE PROFIL -->
@@ -177,14 +175,11 @@
                         <span class="dot dot--green"></span>
                         <span class="code-window__filename">profil.py</span>
                     </div>
-                    <pre class="code-window__body"><code><span class="kw">class</span> <span class="fn">Consultant</span>:
-  <span class="key">nom</span>    = <span class="str">"RICHARD Wilfried"</span>
-  <span class="key">role</span>   = <span class="str">"Programmeur-Statisticien 📊"</span>
-  <span class="key">skills</span> = [<span class="str">"Python"</span>, <span class="str">"R"</span>, <span class="str">"Electron"</span>,
-             <span class="str">"Excel/VBA"</span>, <span class="str">"UML"</span>, <span class="str">"Scrum"</span>]
-  <span class="key">secteurs</span> = <span class="str">"Business · IT · Sciences 🔬"</span>
-  <span class="key">dispo</span>  = <span class="bool">True</span>  <span class="comment"># open to missions 🚀</span></code></pre>
+                    <pre
+                        class="code-window__body"><code><span class="kw">class</span> <span class="fn">Consultant</span>:<br/>  <span class="key">nom</span>      = <span class="str">"RICHARD Wilfried"</span><br/>  <span class="key">role</span>     = <span class="str">"Programmeur-Statisticien 📊"</span><br/>  <span class="key">skills</span>   = [<span class="str">"Excel"</span>, <span class="str">"Power BI"</span>, <span class="str">"Pyton"</span>, <span class="str">"Java"</span>]<br/>  <span class="key">secteurs</span> = <span class="str">"Business · IT · Sciences 🔬"</span><br/>  <span class="key">dispo</span>    = <span class="bool">True</span> <span class="comment"># open to missions 🚀</span></code></pre>
                 </div>
+
+                    </div><!-- /.contact__cols -->
 
                 <div class="contact__links">
                     <a href="https://github.com/WyloW2Ricard0" target="_blank" rel="noopener noreferrer"
@@ -243,7 +238,7 @@
     <script src="adapters/github.js"></script>
     <script src="adapters/stripe.js"></script>
     <script src="assets/js/diagrams.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
     <script src="assets/js/main.js"></script>
 </body>
 
