@@ -14,17 +14,26 @@
     --color-surface: #161b22;
     --color-surface2: #21262d;
     --color-border: #30363d;
-    --color-accent: #58a6ff;
-    --color-accent2: #3fb950;
-    --color-danger: #f85149;
-    --color-warn: #d29922;
-    --color-text: #e6edf3;
+    /* Couleurs du logo : bleu, jaune, violet, blanc */
+        --color-accent: #4A9EFF;
+        /* bleu logo   */
+        --color-yellow: #F5C342;
+        /* jaune logo  */
+        --color-violet: #9B6DFF;
+        /* violet logo */
+        --color-white: #FFFFFF;
+        /* blanc logo  */
+        --color-accent2: #F5C342;
+        /* jaune → remplace vert pour badges/checks */
+        --color-danger: #f85149;
+        --color-warn: #F5C342;
+            --color-text: #e6edf3;
     --color-muted: #8b949e;
     --radius: 0.75rem;
     --transition: 0.2s ease;
     --font-sans: Consolas, 'Courier New', monospace;
     --font-mono: 'JetBrains Mono', Consolas, monospace;
-    --font-title: 'Bauhaus 93', Bungee, 'Bungee', Impact, sans-serif;
+    --font-title: 'Bauhaus 93', Bungee, Impact, sans-serif;
     --max-w: 1100px;
 }
 
@@ -233,11 +242,16 @@ img {
 
 .hero__name {
     font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 700;
+    font-weight: 500;
     font-family: var(--font-title);
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     line-height: 1.1;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
+        background: linear-gradient(135deg, var(--color-white) 0%, var(--color-accent) 50%, var(--color-violet) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        filter: drop-shadow(0 2px 8px rgba(74, 158, 255, 0.3));
 }
 
 .hero__tagline {
@@ -346,21 +360,24 @@ img {
 }
 
 .section__title {
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: 700;
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+        font-weight: 500;
     font-family: var(--font-title);
-    letter-spacing: 0.04em;
+    letter-spacing: 0.08em;
+        text-transform: uppercase;
     margin-bottom: 0.5rem;
     position: relative;
     display: inline-block;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5), 0 0 20px rgba(74, 158, 255, 0.15);
+        color: var(--color-white);
 }
 
 .section__title::after {
     content: '';
     display: block;
-    width: 40px;
     height: 3px;
-    background: var(--color-accent);
+    width: 50px;
+        background: linear-gradient(90deg, var(--color-accent), var(--color-violet));
     border-radius: 2px;
     margin-top: 0.4rem;
 }
@@ -715,7 +732,7 @@ img {
 =================================================== */
 .about__content h3 {
     font-size: 1.15rem;
-    font-weight: 700;
+    font-weight: 500;
     margin-bottom: 0.75rem;
     color: var(--color-accent);
 }
@@ -806,7 +823,7 @@ img {
     padding: 0.25rem 0.65rem;
     border-radius: 2rem;
     font-size: 0.75rem;
-    font-weight: 700;
+    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.04em;
 }
@@ -829,7 +846,7 @@ img {
 
 .product-card h3 {
     font-size: 1.1rem;
-    font-weight: 700;
+    font-weight: 500;
     padding-right: 4rem;
 }
 
@@ -865,7 +882,7 @@ img {
     position: absolute;
     left: 0;
     color: var(--color-accent2);
-    font-weight: 700;
+    font-weight: 500;
 }
 
 .product-card__pricing {
@@ -877,7 +894,7 @@ img {
 
 .product-card__price {
     font-size: 1.75rem;
-    font-weight: 700;
+    font-weight: 500;
     color: var(--color-text);
     font-family: var(--font-mono);
 }
