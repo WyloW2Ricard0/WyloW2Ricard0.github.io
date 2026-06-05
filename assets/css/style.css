@@ -885,3 +885,46 @@ img {
     padding: 0.4rem 0.9rem;
     font-size: 0.8rem;
 }
+
+/* ===================================================
+   ABOUT — badges inline
+=================================================== */
+.about__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.about__badge {
+    background: var(--color-surface2);
+    border: 1px solid var(--color-border);
+    border-radius: 2rem;
+    padding: 0.3rem 0.85rem;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    color: var(--color-text);
+    white-space: nowrap;
+    transition: border-color var(--transition), color var(--transition);
+}
+
+.about__badge:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+/* ===================================================
+   MINDMAP — conteneur carte des compétences
+=================================================== */
+.mindmap-wrap {
+    background: var(--color-surface2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 2.5rem;
+    overflow-x: auto;
+}
+
+.mindmap-wrap .mermaid {
+    min-height: 300px;
+}
