@@ -1081,6 +1081,177 @@ img {
     min-height: 300px;
 }
 /* ===================================================
+   PERFORMANCE — jauges PageSpeed Insights
+=================================================== */
+.perf-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.perf-section__title {
+    font-family: var(--font-title);
+    font-size: 1.2rem;
+    letter-spacing: 0.06em;
+    color: var(--color-white);
+    margin-bottom: 0.25rem;
+}
+
+.perf-strategy {
+    color: var(--color-accent);
+    font-size: 0.95rem;
+    font-family: var(--font-mono);
+}
+
+.perf-section__sub {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    margin-bottom: 1.5rem;
+}
+
+.perf-section__sub a {
+    color: var(--color-accent);
+}
+
+.perf-toggle {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.perf-btn {
+    padding: 0.4rem 1rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface2);
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: border-color var(--transition), color var(--transition);
+}
+
+.perf-btn:hover,
+.perf-btn--active {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+.perf-gauges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.perf-gauge {
+    background: var(--color-surface2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.25rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    width: 155px;
+    transition: border-color var(--transition), transform var(--transition);
+}
+
+.perf-gauge:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+}
+
+.perf-gauge--loading {
+    opacity: 0.5;
+}
+
+.perf-gauge__canvas {
+    display: block;
+}
+
+.perf-gauge__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.perf-gauge__score {
+    font-family: var(--font-title);
+    font-size: 1.75rem;
+    color: var(--color-text);
+    line-height: 1;
+}
+
+.perf-gauge__label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-muted);
+    text-align: center;
+}
+
+/* Métriques détaillées */
+.perf-metrics__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.perf-metric {
+    background: var(--color-surface2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    min-width: 90px;
+}
+
+.perf-metric--good {
+    border-color: var(--color-accent);
+}
+
+.perf-metric--average {
+    border-color: var(--color-yellow);
+}
+
+.perf-metric--poor {
+    border-color: var(--color-danger);
+}
+
+.perf-metric__emoji {
+    font-size: 1.1rem;
+}
+
+.perf-metric__label {
+    font-size: 0.7rem;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.perf-metric__value {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+.perf-notice {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    margin-top: 1rem;
+}
+/* ===================================================
    CONTACT — code-window + formulaire
 =================================================== */
 .contact__code {

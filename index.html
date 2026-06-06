@@ -78,7 +78,7 @@
                 <div class="about__grid">
                     <div class="about__content">
                         <h3>RICHARD Wilfried — Programmeur-Statisticien 📊</h3>
-                        <p>Programmeur-statisticien, je dispose de très bonnes capacités d'analyse et scientifiques.
+                        <p>Programmeur-statisticien, je dispose de très bonnes capacités d'analyse opérationnelle.<br />
                             Mon parcours complet mêlant <strong>business</strong>, <strong>informatique</strong>
                             et <strong>sciences</strong> me permet d'intervenir efficacement sur des secteurs variés.
                         </p>
@@ -103,11 +103,56 @@
         <section class="section section--alt" id="expertise">
             <div class="container">
                 <h2 class="section__title">🧠 Expertise &amp; Méthodes</h2>
-                <p class="section__sub">Approche structurée par la modélisation UML et les méthodes agiles.</p>
+                <p class="section__sub">Approche structurée par la modélisation et les méthodes agiles.</p>
 
                 <!-- MINDMAP MERMAID -->
                 <div class="mindmap-wrap">
                     <div class="mermaid" id="diagram-mindmap"></div>
+                </div>
+
+                <!-- PERFORMANCE DU SITE — PageSpeed Insights API -->
+                <div class="perf-section">
+                    <h3 class="perf-section__title">📡 Performance du site <span class="perf-strategy" id="perf-strategy-label">—
+                            Desktop</span></h3>
+                    <p class="perf-section__sub">Scores Lighthouse en temps réel via <a
+                            href="https://developers.google.com/speed/docs/insights/v5/about" target="_blank"
+                            rel="noopener noreferrer">PageSpeed Insights API</a>.</p>
+                    <div class="perf-toggle">
+                        <button class="perf-btn perf-btn--active" id="btn-desktop" data-strategy="desktop">🖥️ Desktop</button>
+                        <button class="perf-btn" id="btn-mobile" data-strategy="mobile">📱 Mobile</button>
+                    </div>
+                    <p class="perf-notice" id="perf-notice">Chargement des scores en cours…</p>
+                    <div class="perf-metrics" id="perf-metrics"></div>
+                    <div class="perf-gauges" id="perf-gauges">
+                        <div class="perf-gauge perf-gauge--loading" id="gauge-performance">
+                            <canvas class="perf-gauge__canvas" width="120" height="120"></canvas>
+                            <div class="perf-gauge__info">
+                                <span class="perf-gauge__score">--</span>
+                                <span class="perf-gauge__label">⚡ Performance</span>
+                            </div>
+                        </div>
+                        <div class="perf-gauge perf-gauge--loading" id="gauge-accessibility">
+                            <canvas class="perf-gauge__canvas" width="120" height="120"></canvas>
+                            <div class="perf-gauge__info">
+                                <span class="perf-gauge__score">--</span>
+                                <span class="perf-gauge__label">♿ Accessibilité</span>
+                            </div>
+                        </div>
+                        <div class="perf-gauge perf-gauge--loading" id="gauge-best-practices">
+                            <canvas class="perf-gauge__canvas" width="120" height="120"></canvas>
+                            <div class="perf-gauge__info">
+                                <span class="perf-gauge__score">--</span>
+                                <span class="perf-gauge__label">✅ Bonnes pratiques</span>
+                            </div>
+                        </div>
+                        <div class="perf-gauge perf-gauge--loading" id="gauge-seo">
+                            <canvas class="perf-gauge__canvas" width="120" height="120"></canvas>
+                            <div class="perf-gauge__info">
+                                <span class="perf-gauge__score">--</span>
+                                <span class="perf-gauge__label">🔍 SEO</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -137,14 +182,15 @@
         <section class="section" id="contact">
             <div class="container contact__inner">
                 <h2 class="section__title">📩 Contact</h2>
-                <p>Un projet, une mission, une question ? Voici ce que vous devez savoir :<br />
-                    Réponse sous 48h · Données transmises via Formspree (chiffrement HTTPS)</p>
+                <p>Un projet, une mission, une question ? :<br />
+                    Réponse sous 48h · Données transmises via Formspree (chiffrement HTTPS)
+                </p>
                 
                 <!-- GRILLE : FORMULAIRE | CODE PROFIL -->
                 <div class="contact__cols">
 
                 <!-- FORMULAIRE FORMSPREE -->
-                <form class="contact__form" action="https://formspree.io/f/xwpbgknz" method="POST" aria-label="Formulaire de contact">
+                <form class="contact__form" action="https://formspree.io/f/mreebgdz" method="POST" aria-label="Formulaire de contact">
                     <div class="contact__form-row">
                         <div class="contact__form-group">
                             <label for="cf-name">👤 Nom</label>
@@ -240,6 +286,7 @@
     <script src="assets/js/diagrams.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
     <script src="assets/js/main.js"></script>
-</body>
+    <script src="assets/js/perf.js"></script>
+    </body>
 
 </html>
