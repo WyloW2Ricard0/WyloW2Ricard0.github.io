@@ -1193,12 +1193,13 @@ img {
     background: var(--color-surface2);
     border: 1px solid var(--color-border);
     border-radius: var(--radius);
-    padding: 1.5rem 1.25rem 1rem;
+    padding: 1rem 1rem 0.75rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.75rem;
-    width: 155px;
+    gap: 0.4rem;
+    width: 168px;
+    cursor: pointer;
     transition: border-color var(--transition), transform var(--transition);
 }
 
@@ -1208,32 +1209,80 @@ img {
 }
 
 .perf-gauge--loading {
-    opacity: 0.5;
+    opacity: 0.4;
+    min-height: 180px;
+}
+
+/* Nom de la catégorie — AU-DESSUS du canvas */
+.perf-gauge__name {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text);
+    text-align: center;
+    letter-spacing: 0.02em;
+    order: 0;
 }
 
 .perf-gauge__canvas {
     display: block;
+    order: 1;
 }
 
-.perf-gauge__info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.2rem;
-}
-
-.perf-gauge__score {
-    font-family: var(--font-title);
-    font-size: 1.75rem;
-    color: var(--color-text);
-    line-height: 1;
-}
-
-.perf-gauge__label {
+/* TBT / nb erreurs — EN DESSOUS du canvas */
+.perf-gauge__sub {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     color: var(--color-muted);
     text-align: center;
+    order: 2;
+}
+
+/* Bouton Détails */
+.perf-gauge__toggle {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-accent);
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    padding: 0.2rem 0.65rem;
+    cursor: pointer;
+    order: 3;
+    transition: border-color var(--transition), color var(--transition);
+    white-space: nowrap;
+}
+
+.perf-gauge__toggle:hover {
+    border-color: var(--color-accent);
+}
+
+/* Panneau d'erreurs (collapsible) */
+.perf-gauge__panel {
+    list-style: none;
+    width: 100%;
+    text-align: left;
+    font-size: 0.72rem;
+    color: var(--color-muted);
+    order: 4;
+    padding: 0.5rem 0.25rem 0;
+    border-top: 1px solid var(--color-border);
+    margin-top: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.perf-gauge__panel li {
+    padding-left: 0.75rem;
+    position: relative;
+}
+
+.perf-gauge__panel li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--color-danger);
 }
 
 /* Métriques détaillées — style stripe-notice */
