@@ -6,21 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mnémosyne — Solutions Logicielles</title>
     <meta name="description"
-        content="Mnémosyne — Consultant programmeur-statisticien. Solutions logicielles sur mesure : applications Electron et Excel. Sciences, Données, Solutions." />
+        content="Mnémosyne — Consultant programmeur-statisticien RICHARD Wilfried. Solutions logicielles sur mesure : applications Electron et Excel. Sciences, Données, Solutions." />
+    <!-- SEO -->
+    <meta name="author" content="RICHARD Wilfried" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://wylow2ricard0.github.io/" />
+    <!-- Open Graph -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:title"       content="Mnémosyne — Solutions Logicielles" />
+    <meta property="og:description" content="Consultant programmeur-statisticien. Applications Electron et Excel sur mesure." />
+    <meta property="og:url"         content="https://wylow2ricard0.github.io/" />
+    <meta property="og:locale"      content="fr_FR" />
+    <!-- PWA / thème -->
+    <meta name="theme-color" content="#0d1117" />
+    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/img/logo_SP_contour_20250831.ico" />
+    <!-- CSS -->
     <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- Polices : preconnect puis preload -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Bungee&family=JetBrains+Mono:wght@400;600&display=swap" />
     <link
-        href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
-        rel="stylesheet" />
+        href="https://fonts.googleapis.com/css2?family=Bungee&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Bungee&family=JetBrains+Mono:wght@400;600&display=swap"
+            rel="stylesheet" />
+    </noscript>
 </head>
 
 <body>
+    <!-- Lien d'évitement — accessibilité AAA -->
+    <a class="skip-link" href="#main-content">Aller au contenu principal</a>
 
     <!-- ====== NAVIGATION ====== -->
-    <header class="site-header">
-        <nav class="nav container">
+    <header class="site-header" role="banner">
+        <nav class="nav container" aria-label="Navigation principale">
             <a href="#" class="nav__logo">
                 <img src="assets/img/logo_SP_contour_20250831.ico" alt="" class="nav__logo-img" aria-hidden="true" />
                 Mnémosyne
@@ -28,17 +52,17 @@
             <ul class="nav__links">
                 <li><a href="#about">Profil</a></li>
                 <li><a href="#expertise">Expertise</a></li>
+                <li><a href="#performance">Performance</a></li>
                 <li><a href="#products">Applications</a></li>
-                <li><a href="#projects">Projets</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
+    <main id="main-content" role="main">
 
         <!-- ====== HERO ====== -->
-        <section class="hero" id="home">
+        <section class="hero" id="home" aria-labelledby="hero-title">
             <div class="container hero__inner">
                 <div class="hero__text">
                             <p class="hero__greeting">Bienvenue chez</p>
@@ -47,7 +71,7 @@
                             <img src="assets/img/logo_SP_contour_20250831.ico" alt="Logo Mnémosyne" class="hero__logo-big" />
                         </div>
                         <div class="hero__brand-text">
-                            <h1 class="hero__name">Mnémosyne</h1>
+                            <h1 class="hero__name" id="hero-title">Mnémosyne</h1>
                             <p class="hero__tagline">Sciences · Données · Solutions</p>
                         </div>
                         </div>
@@ -111,7 +135,7 @@
                 </div>
 
                 <!-- PERFORMANCE DU SITE — PageSpeed Insights API -->
-                <div class="perf-section">
+                <div class="perf-section" id="performance">
                     <div class="perf-section__header">
                         <div class="perf-section__heading">
                             <h3 class="perf-section__title">📡 Performance du site <span class="perf-strategy" id="perf-strategy-label">— Desktop</span></h3>
