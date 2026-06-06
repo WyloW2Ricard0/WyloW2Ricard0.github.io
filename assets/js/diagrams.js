@@ -47,9 +47,12 @@ mindmap
                 NoSQL"]
             c3))"⚙️ Système"((
                 c3a)"☁️ Azure"(
-                c3b["💻 VSCode"]
-                c3c["💳 Stripe"]
-                c3d["🔌 Supabase"]
+                c3b["🐙 Docker"]
+                c3c["🧑 Git"]
+                c3d["📄 LaTex"]
+                c3e["💳 Stripe"]
+                c3f["🔌 Supabase"]
+                c3g["💻 VSCode"]
         b(("💼 Métier"))
             b2))"🔒 Cybersécurité"((
                 b2a["🕵️ OSINT"]
