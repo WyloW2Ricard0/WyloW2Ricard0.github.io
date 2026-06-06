@@ -118,12 +118,13 @@ mindmap
             Hexagonal"]
             d3["🎨 Design
             UI/UX"]
-            d4["📐 Merise"]
-            d5["🏃 Scrum"]
-            d6["📊 Schéma
+            d4["🏃 Scrum
+            & Merise"]
+            d5["📊 Schéma
             UML"]
-            d7["🧪 Test Unitaire"]
-            `,
+            d6["🧪 Test
+            Unitaire"]
+`,
 
 };
 
