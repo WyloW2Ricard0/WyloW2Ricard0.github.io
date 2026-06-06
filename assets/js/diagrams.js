@@ -131,8 +131,5 @@ mindmap
 
 };
 
-// Injecter les définitions dans les éléments DOM
-Object.entries(DIAGRAMS_DEFS).forEach(([id, def]) => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = def;
-});
+// L'injection est désormais gérée par main.js (IntersectionObserver)
+// pour éviter le forced reflow au chargement initial.

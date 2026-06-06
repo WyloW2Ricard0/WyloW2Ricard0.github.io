@@ -41,17 +41,17 @@
         mobile: {
             date: '06/06/2026',
             categories: {
-                performance: { score: 35, emoji: '⚡ Performance' },
+                performance: { score: 70, emoji: '⚡ Performance' },
                 accessibility: { score: 93, emoji: '♿ Accessibilite' },
                 'best-practices': { score: 100, emoji: '✅ Bonnes pratiques' },
                 seo: { score: 100, emoji: '🔍 SEO' },
             },
             perfMetrics: [
-                { key: 'CLS', label: 'Cumulative Layout Shift', value: '0,01', score: 1.00, weight: 0.25 },
-                { key:'FCP', label:'First Contentful Paint',   value:'1,4 s',   score:0.87, weight:0.10 },
-                { key:'SI',  label:'Speed Index',              value:'3,1 s',   score:0.72, weight:0.10 },
-                { key:'LCP', label:'Largest Contentful Paint', value:'5,2 s',   score:0.18, weight:0.25 },
-                { key: 'TBT', label: 'Total Blocking Time', value: '2 320 ms', score: 0.05, weight: 0.30 },
+                { key: 'CLS', label: 'Cumulative Layout Shift', value: '0,09', score: 0.92, weight: 0.25 },
+                { key: 'FCP', label: 'First Contentful Paint', value: '2 558 ms', score: 0.66, weight: 0.10 },
+                { key: 'SI', label: 'Speed Index', value: '3 073 ms', score: 0.93, weight: 0.10 },
+                { key: 'LCP', label: 'Largest Contentful Paint', value: '2 708 ms', score: 0.86, weight: 0.25 },
+                { key: 'TBT', label: 'Total Blocking Time', value: '912 ms', score: 0.31, weight: 0.30 },
             ],
             errors: {
                 performance: [

@@ -382,6 +382,9 @@ img {
 =================================================== */
 .section {
     padding-block: 5rem;
+    /* Fix LCP : permet au navigateur de sauter le layout des sections hors-écran */
+    content-visibility: auto;
+    contain-intrinsic-size: 0 600px;
 }
 
 .section--alt {
