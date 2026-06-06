@@ -36,8 +36,7 @@ if (toggle && navLinks) {
 // Mermaid — Fix forced reflow : initialisation différée
 // via IntersectionObserver pour ne pas bloquer le LCP
 // =====================================================
-function initMermaid() {
-    if (typeof mermaid === 'undefined') return;
+if (typeof mermaid !== 'undefined') {
     mermaid.initialize({
         startOnLoad: false,
         theme: 'base',
@@ -55,19 +54,3 @@ function initMermaid() {
     }
     mermaid.run();
 }
-
-// Observer la section expertise pour initialiser Mermaid seulement quand visible
-const expertiseSection = document.getElementById('expertise');
-if (expertiseSection) {
-    const mermaidObs = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-            mermaidObs.disconnect();
-            initMermaid();
-        }
-    }, { threshold: 0.05 });
-    mermaidObs.observe(expertiseSection);
-} else {
-    initMermaid();
-}
-
-
