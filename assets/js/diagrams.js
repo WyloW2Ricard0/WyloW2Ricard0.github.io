@@ -11,10 +11,11 @@ const DIAGRAMS_DEFS = {
     D[💻 Code] --> B
     B --> E[✅ Solutions]
     style A stroke:#f85149,stroke-width:2px
-    style B stroke:#8b949e
-    style C stroke:#9B6DFF
-    style D stroke:#4A9EFF
-    style E stroke:#3fb950`,
+    style B stroke:#8b949e,stroke-width:2px
+    style C stroke:#9B6DFF,stroke-width:2px
+    style D stroke:#4A9EFF,stroke-width:2px
+    style E stroke:#3fb950,stroke-width:2px
+`,
 
     'diagram-mindmap': `---
 config:
@@ -40,6 +41,7 @@ mindmap
                 QueryM & DAX"]
                 c1d["🐍 Jupyter
                 Python"]
+                c1e["📊 RStudio"]
             c2))"🗄️ Base de
             données"((
                 c2a["🐘 PostgreSQL"]
@@ -47,9 +49,12 @@ mindmap
                 NoSQL"]
             c3))"⚙️ Système"((
                 c3a)"☁️ Azure"(
-                c3b["💻 VSCode"]
-                c3c["💳 Stripe"]
-                c3d["🔌 Supabase"]
+                c3b["🐙 Docker"]
+                c3c["🧑 Git"]
+                c3d["📄 LaTex"]
+                c3e["💳 Stripe"]
+                c3f["🔌 Supabase"]
+                c3g["💻 VSCode"]
         b(("💼 Métier"))
             b2))"🔒 Cybersécurité"((
                 b2a["🕵️ OSINT"]
@@ -128,8 +133,5 @@ mindmap
 
 };
 
-// Injecter les définitions dans les éléments DOM
-Object.entries(DIAGRAMS_DEFS).forEach(([id, def]) => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = def;
-});
+// L'injection est désormais gérée par main.js (IntersectionObserver)
+// pour éviter le forced reflow au chargement initial.

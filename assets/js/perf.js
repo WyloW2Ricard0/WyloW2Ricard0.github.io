@@ -1,201 +1,197 @@
+﻿// =====================================================
+// PERF -- Jauges Lighthouse -- Valeurs fixees
+// Rapport Desktop v13.3.0 du 06/06/2026
+// Source: https://pagespeed.web.dev/analysis/...
 // =====================================================
-// PERF — PageSpeed Insights API (Lighthouse v5)
-// Affiche Performance, Accessibilité, Bonnes Pratiques, SEO
-// via jauges Canvas animées aux couleurs du logo
-// =====================================================
-
 (function initPerf() {
-    const SITE_URL   = 'https://wylow2ricard0.github.io';
-    const API_BASE   = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed';
+    'use strict';
 
-    // Couleurs du logo
-    const COLOR_BLUE   = '#4A9EFF';
-    const COLOR_YELLOW = '#F5C342';
-    const COLOR_VIOLET = '#9B6DFF';
-    const COLOR_BG     = '#21262d';
-    const COLOR_TRACK  = '#30363d';
-
-    const CATEGORIES = [
-        { id: 'gauge-performance',     key: 'performance',     color: COLOR_BLUE   },
-        { id: 'gauge-accessibility',   key: 'accessibility',   color: COLOR_VIOLET },
-        { id: 'gauge-best-practices',  key: 'best-practices',  color: COLOR_YELLOW },
-        { id: 'gauge-seo',             key: 'seo',             color: '#3fb950'    },
-    ];
-
-    const METRICS_LABELS = {
-        'first-contentful-paint':        { label: 'FCP',    emoji: '🎨' },
-        'speed-index':                   { label: 'Speed Index', emoji: '⚡' },
-        'largest-contentful-paint':      { label: 'LCP',    emoji: '📦' },
-        'total-blocking-time':           { label: 'TBT',    emoji: '🧱' },
-        'cumulative-layout-shift':       { label: 'CLS',    emoji: '🔀' },
-        'interactive':                   { label: 'TTI',    emoji: '🖱️' },
+    // Donnees figees -- plus d API
+    const DATA = {
+        desktop: {
+            date: '06/06/2026',
+            categories: {
+                performance: { score: 58, emoji: '⚡ Performance' },
+                accessibility: { score: 93, emoji: '♿ Accessibilite' },
+                'best-practices': { score: 100, emoji: '✅ Bonnes pratiques' },
+                seo: { score: 100, emoji: '🔍 SEO' },
+            },
+            // Poids Lighthouse v13 desktop
+            perfMetrics: [
+                { key: 'CLS', label: 'Cumulative Layout Shift', value: '0,01', score: 1.00, weight: 0.25 },
+                { key:'FCP', label:'First Contentful Paint',   value:'0,7 s',   score:0.97, weight:0.10 },
+                { key:'SI',  label:'Speed Index',              value:'1,2 s',   score:0.95, weight:0.10 },
+                { key:'LCP', label:'Largest Contentful Paint', value:'2,4 s',   score:0.50, weight:0.25 },
+                { key: 'TBT', label: 'Total Blocking Time', value: '977 ms', score: 0.22, weight: 0.30 },
+            ],
+            errors: {
+                performance: [
+                    'Requêtes de blocage du rendu',
+                    'Utiliser des durées de mise en cache efficaces',
+                    'Améliorer l\'affichage des images',
+                    'Ajustement forcé de la mise en page',
+                    'Arborescence du réseau',
+                    'Ancien JavaScript'
+                ],
+                accessibility: ['3 Contraste insuffisant'],
+                'best-practices': [],
+                seo:              [],
+            },
+        },
+        mobile: {
+            date: '06/06/2026',
+            categories: {
+                performance: { score: 70, emoji: '⚡ Performance' },
+                accessibility: { score: 93, emoji: '♿ Accessibilite' },
+                'best-practices': { score: 100, emoji: '✅ Bonnes pratiques' },
+                seo: { score: 100, emoji: '🔍 SEO' },
+            },
+            perfMetrics: [
+                { key: 'CLS', label: 'Cumulative Layout Shift', value: '0,09', score: 0.92, weight: 0.25 },
+                { key: 'FCP', label: 'First Contentful Paint', value: '2 558 ms', score: 0.66, weight: 0.10 },
+                { key: 'SI', label: 'Speed Index', value: '3 073 ms', score: 0.93, weight: 0.10 },
+                { key: 'LCP', label: 'Largest Contentful Paint', value: '2 708 ms', score: 0.86, weight: 0.25 },
+                { key: 'TBT', label: 'Total Blocking Time', value: '912 ms', score: 0.31, weight: 0.30 },
+            ],
+            errors: {
+                performance: [
+                    'Requêtes de blocage du rendu',
+                    'Utiliser des durées de mise en cache efficaces',
+                    'Améliorer l\'affichage des images',
+                    'Ajustement forcé de la mise en page',
+                    'Arborescence du réseau',
+                    'Ancien JavaScript'
+                ],
+                accessibility: ['3 Contraste insuffisant'],
+                'best-practices': [],
+                seo:              [],
+            },
+        },
     };
 
-    let currentStrategy = 'desktop';
+    const C_GOOD  = '#4A9EFF';
+    const C_AVG   = '#F5C342';
+    const C_POOR  = '#f85149';
+    const C_TRACK = '#2d333b';
 
-    // ---- Jauges Canvas ----
-    function drawGauge(canvas, score, color) {
-        const ctx   = canvas.getContext('2d');
-        const W     = canvas.width;
-        const H     = canvas.height;
-        const cx    = W / 2;
-        const cy    = H / 2;
-        const R     = 46;
-        const start = -Math.PI * 0.75;
-        const end   = Math.PI * 0.75;
-        const val   = start + (end - start) * (score / 100);
+    function sc(s) { return s >= 90 ? C_GOOD : s >= 50 ? C_AVG : C_POOR; }
 
-        ctx.clearRect(0, 0, W, H);
-
-        // Fond arc
-        ctx.beginPath();
-        ctx.arc(cx, cy, R, start, end);
-        ctx.strokeStyle = COLOR_TRACK;
-        ctx.lineWidth   = 10;
-        ctx.lineCap     = 'round';
-        ctx.stroke();
-
-        // Arc valeur
+    // Jauge simple (utilisee pour toutes les categories)
+    function drawSimple(canvas, score) {
+        var ctx = canvas.getContext('2d');
+        var W = canvas.width, H = canvas.height;
+        var cx = W/2, cy = H/2, R = 52;
+        var start=-Math.PI*0.75, end=Math.PI*0.75;
+        var val = start + (end-start)*(score/100);
+        var color = sc(score);
+        ctx.clearRect(0,0,W,H);
+        ctx.beginPath(); ctx.arc(cx,cy,R,start,end);
+        ctx.strokeStyle=C_TRACK; ctx.lineWidth=11; ctx.lineCap='round'; ctx.stroke();
         if (score > 0) {
-            ctx.beginPath();
-            ctx.arc(cx, cy, R, start, val);
-            ctx.strokeStyle = color;
-            ctx.lineWidth   = 10;
-            ctx.lineCap     = 'round';
-            ctx.stroke();
+            ctx.beginPath(); ctx.arc(cx,cy,R,start,val);
+            ctx.strokeStyle=color; ctx.lineWidth=11; ctx.lineCap='round'; ctx.stroke();
         }
+        ctx.font='bold 28px Consolas,monospace'; ctx.fillStyle=color;
+        ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(score,cx,cy-5);
+        ctx.font='11px Consolas,monospace'; ctx.fillStyle='#b0bac3'; ctx.fillText('%',cx,cy+13);
     }
 
-    function animateGauge(canvas, targetScore, color, scoreEl) {
-        let current = 0;
-        const step  = Math.max(1, Math.floor(targetScore / 40));
-        const timer = setInterval(() => {
-            current = Math.min(current + step, targetScore);
-            drawGauge(canvas, current, color);
-            scoreEl.textContent = current;
-            if (current >= targetScore) clearInterval(timer);
-        }, 25);
+    // Construire la structure d une jauge dans le DOM
+    // tooltipLines : tableau de strings pour le title / aria-description
+    function buildGauge(id, label, score, sub, tooltipLines) {
+        var wrap = document.getElementById(id);
+        if (!wrap) return null;
+        // Tooltip natif (survol clavier / souris)
+        var tipText = tooltipLines && tooltipLines.length
+            ? tooltipLines.join('\n')
+            : label + ' : ' + score + '/100';
+        wrap.innerHTML =
+            '<span class="perf-gauge__name">' + label + '</span>' +
+            '<canvas class="perf-gauge__canvas" width="140" height="140" aria-hidden="true" title="' +
+            tipText.replace(/"/g, '&quot;') + '"></canvas>' +
+            '<span class="perf-gauge__sub">' + sub + '</span>';
+        wrap.setAttribute('aria-label', label + ' : ' + score + '/100. Survolez le graphe pour les d&eacute;tails.');
+        wrap.classList.remove('perf-gauge--loading');
+        return wrap.querySelector('canvas');
     }
 
-    // ---- Couleur selon score ----
-    function scoreColor(s) {
-        if (s >= 90) return COLOR_BLUE;
-        if (s >= 50) return COLOR_YELLOW;
-        return '#f85149';
+    // Render une strategie
+    function render(strategy) {
+        var d = DATA[strategy] || DATA.desktop;
+        var cats = d.categories;
+        var mets = d.perfMetrics;
+        var errs = d.errors;
+        var tbt  = mets.filter(function(m){return m.key==='TBT';})[0];
+
+        // Performance -- jauge simple + tooltip metriques + erreurs
+        var perfTooltip = ['── Métriques ──'].concat(
+            mets.map(function(m){
+                var icon = m.score >= 0.9 ? '\u2713' : m.score >= 0.5 ? '\u26a0' : '\u2717';
+                return icon + ' ' + m.key + ' : ' + m.value + '  (poids ' + m.weight + ')';
+            })
+        ).concat(['── Problèmes ──']).concat(
+            errs.performance.map(function (e) { return '\u2717 ' + e; })
+        );
+        var c0 = buildGauge('gauge-performance', cats.performance.emoji, cats.performance.score,
+            'TBT : ' + (tbt ? tbt.value : '\u2014'),
+            perfTooltip
+        );
+        if (c0) drawSimple(c0, cats.performance.score);
+
+        // Accessibilite
+        var a = cats.accessibility;
+        var accTooltip = [].concat(errs.accessibility.length
+            ? ['── Problèmes ──'].concat(errs.accessibility.map(function (e) { return '\u2717 ' + e; }))
+            : ['\u2713 Aucune erreur détectée']
+        );
+        var c1 = buildGauge('gauge-accessibility', cats.accessibility.emoji, a.score,
+            errs.accessibility.length + ' erreur' + (errs.accessibility.length > 1 ? 's' : ''),
+            accTooltip
+        );
+        if (c1) drawSimple(c1, a.score);
+
+        // Best Practices
+        var bp = cats['best-practices'];
+        var c2 = buildGauge('gauge-best-practices', cats['best-practices'].emoji, bp.score,
+            '0 erreur', ['\u2713 Aucune erreur détectée']);
+        if (c2) drawSimple(c2, bp.score);
+
+        // SEO
+        var c3 = buildGauge('gauge-seo', cats.seo.emoji, cats.seo.score,
+            '0 erreur', ['\u2713 Aucune erreur détectée']);
+        if (c3) drawSimple(c3, cats.seo.score);
+
+        var notice = document.getElementById('perf-notice');
+        if (notice) notice.textContent = 'Scores Lighthouse v10 du ' + d.date + ', ';
+        var mc = document.getElementById('perf-metrics');
+        if (mc) mc.innerHTML = '';
     }
 
-    // ---- Rendre les métriques détaillées ----
-    function renderMetrics(audits) {
-        const container = document.getElementById('perf-metrics');
-        if (!container) return;
-        const entries = Object.entries(METRICS_LABELS)
-            .map(([id, meta]) => ({ id, ...meta, audit: audits[id] }))
-            .filter(e => e.audit && e.audit.displayValue);
+    var currentStrategy = 'desktop';
 
-        if (!entries.length) { container.innerHTML = ''; return; }
-
-        container.innerHTML = `
-            <div class="perf-metrics__grid">
-                ${entries.map(e => {
-                    const rating = e.audit.score != null
-                        ? (e.audit.score >= 0.9 ? 'good' : e.audit.score >= 0.5 ? 'average' : 'poor')
-                        : 'neutral';
-                    return `
-                    <div class="perf-metric perf-metric--${rating}">
-                        <span class="perf-metric__emoji">${e.emoji}</span>
-                        <span class="perf-metric__label">${e.label}</span>
-                        <span class="perf-metric__value">${e.audit.displayValue}</span>
-                    </div>`;
-                }).join('')}
-            </div>`;
-    }
-
-    // ---- Charger les données ----
-    async function loadScores(strategy) {
-        const notice = document.getElementById('perf-notice');
-        if (notice) notice.textContent = '⏳ Récupération des scores Lighthouse…';
-
-        // Reset jauges
-        CATEGORIES.forEach(cat => {
-            const wrap  = document.getElementById(cat.id);
-            if (!wrap) return;
-            const scoreEl = wrap.querySelector('.perf-gauge__score');
-            const canvas  = wrap.querySelector('.perf-gauge__canvas');
-            if (scoreEl) scoreEl.textContent = '--';
-            if (canvas)  drawGauge(canvas, 0, COLOR_TRACK);
-            wrap.classList.add('perf-gauge--loading');
+    document.querySelectorAll('.perf-btn').forEach(function(btn){
+        btn.addEventListener('click', function(){
+            var strategy = btn.dataset.strategy;
+            if (strategy === currentStrategy) return;
+            currentStrategy = strategy;
+            document.querySelectorAll('.perf-btn').forEach(function(b){ b.classList.remove('perf-btn--active'); });
+            btn.classList.add('perf-btn--active');
+            var lbl = document.getElementById('perf-strategy-label');
+            if (lbl) lbl.textContent = strategy==='desktop'?'\u2014 Desktop':'\u2014 Mobile';
+            render(strategy);
         });
+    });
 
-        const url = `${API_BASE}?url=${encodeURIComponent(SITE_URL)}&strategy=${strategy}&category=performance&category=accessibility&category=best-practices&category=seo`;
-
-        try {
-            const res  = await fetch(url);
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-            const data = await res.json();
-            const cats = data.lighthouseResult?.categories ?? {};
-            const auds = data.lighthouseResult?.audits     ?? {};
-
-            CATEGORIES.forEach(cat => {
-                const wrap    = document.getElementById(cat.id);
-                if (!wrap) return;
-                const scoreEl = wrap.querySelector('.perf-gauge__score');
-                const canvas  = wrap.querySelector('.perf-gauge__canvas');
-                const raw     = cats[cat.key]?.score;
-                const score   = raw != null ? Math.round(raw * 100) : 0;
-                const color   = scoreColor(score);
-                wrap.classList.remove('perf-gauge--loading');
-                if (canvas && scoreEl) animateGauge(canvas, score, color, scoreEl);
-            });
-
-            renderMetrics(auds);
-            if (notice) notice.textContent = `✅ Données récupérées — ${new Date().toLocaleTimeString('fr-FR')}`;
-
-        } catch (err) {
-            if (notice) notice.textContent = `⚠️ Impossible de charger les scores (${err.message}). Réessayez en ligne.`;
-            console.warn('[perf.js]', err);
-        }
-    }
-
-    // ---- Init DOM ----
     function init() {
-        // Dessiner les arcs vides au démarrage
-        CATEGORIES.forEach(cat => {
-            const wrap   = document.getElementById(cat.id);
-            if (!wrap) return;
-            const canvas = wrap.querySelector('.perf-gauge__canvas');
-            if (canvas) drawGauge(canvas, 0, COLOR_TRACK);
-        });
-
-        // Boutons stratégie
-        document.querySelectorAll('.perf-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const strategy = btn.dataset.strategy;
-                if (strategy === currentStrategy) return;
-                currentStrategy = strategy;
-                document.querySelectorAll('.perf-btn').forEach(b => b.classList.remove('perf-btn--active'));
-                btn.classList.add('perf-btn--active');
-                const label = document.getElementById('perf-strategy-label');
-                if (label) label.textContent = strategy === 'desktop' ? '— Desktop' : '— Mobile';
-                loadScores(strategy);
-            });
-        });
-
-        // Charger au premier affichage de la section (IntersectionObserver)
-        const section = document.getElementById('expertise');
-        if (!section) { loadScores(currentStrategy); return; }
-
-        const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting) {
-                observer.disconnect();
-                loadScores(currentStrategy);
-            }
-        }, { threshold: 0.1 });
-        observer.observe(section);
+        var section = document.getElementById('expertise');
+        if (!section) { render(currentStrategy); return; }
+        var obs = new IntersectionObserver(function(entries){
+            if (entries[0].isIntersecting) { obs.disconnect(); render(currentStrategy); }
+        },{ threshold:0.05 });
+        obs.observe(section);
     }
 
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
-    }
+    } else { init(); }
 })();

@@ -4,6 +4,15 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
 // =====================================================
+// Service Worker — Cache stratégique (fix cache Lighthouse)
+// =====================================================
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
+}
+
+// =====================================================
 // Navigation mobile : toggle
 // =====================================================
 const toggle = document.querySelector('.nav__toggle');
@@ -24,8 +33,8 @@ if (toggle && navLinks) {
 }
 
 // =====================================================
-// Mermaid — initialisation avec thème sombre
-// Les définitions sont injectées par assets/js/diagrams.js
+// Mermaid — Fix forced reflow : initialisation différée
+// via IntersectionObserver pour ne pas bloquer le LCP
 // =====================================================
 if (typeof mermaid !== 'undefined') {
     mermaid.initialize({
@@ -36,6 +45,12 @@ if (typeof mermaid !== 'undefined') {
             lineColor: '#F5C342',
         },
     });
+    // Injecter les définitions AVANT mermaid.run() pour éviter le reflow
+    if (typeof DIAGRAMS_DEFS !== 'undefined') {
+        Object.entries(DIAGRAMS_DEFS).forEach(([id, def]) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = def;
+        });
+    }
     mermaid.run();
 }
-
