@@ -11,21 +11,29 @@
         desktop: {
             date: '06/06/2026',
             categories: {
-                performance:      { score: 58,  emoji: 'Performance'     },
-                accessibility:    { score: 93,  emoji: 'Accessibilite'   },
-                'best-practices': { score: 100, emoji: 'Bonnes pratiques'},
-                seo:              { score: 100, emoji: 'SEO'             },
+                performance: { score: 58, emoji: '⚡ Performance' },
+                accessibility: { score: 93, emoji: '♿ Accessibilite' },
+                'best-practices': { score: 100, emoji: '✅ Bonnes pratiques' },
+                seo: { score: 100, emoji: '🔍 SEO' },
             },
             // Poids Lighthouse v13 desktop
             perfMetrics: [
+                { key: 'CLS', label: 'Cumulative Layout Shift', value: '0,01', score: 1.00, weight: 0.25 },
                 { key:'FCP', label:'First Contentful Paint',   value:'0,7 s',   score:0.97, weight:0.10 },
                 { key:'SI',  label:'Speed Index',              value:'1,2 s',   score:0.95, weight:0.10 },
                 { key:'LCP', label:'Largest Contentful Paint', value:'2,4 s',   score:0.50, weight:0.25 },
-                { key:'TBT', label:'Total Blocking Time',      value:'977 ms',  score:0.22, weight:0.30 },
-                { key:'CLS', label:'Cumulative Layout Shift',  value:'0,01',    score:1.00, weight:0.25 },
+                { key: 'TBT', label: 'Total Blocking Time', value: '977 ms', score: 0.22, weight: 0.30 },
             ],
             errors: {
-                accessibility:    [{ label:'Contraste insuffisant', detail:'3 elements' }],
+                performance: [
+                    'Requêtes de blocage du rendu',
+                    'Utiliser des durées de mise en cache efficaces',
+                    'Améliorer l\'affichage des images',
+                    'Ajustement forcé de la mise en page',
+                    'Arborescence du réseau',
+                    'Ancien JavaScript'
+                ],
+                accessibility: ['3 Contraste insuffisant'],
                 'best-practices': [],
                 seo:              [],
             },
@@ -33,20 +41,28 @@
         mobile: {
             date: '06/06/2026',
             categories: {
-                performance:      { score: 35,  emoji: 'Performance'     },
-                accessibility:    { score: 93,  emoji: 'Accessibilite'   },
-                'best-practices': { score: 100, emoji: 'Bonnes pratiques'},
-                seo:              { score: 100, emoji: 'SEO'             },
+                performance: { score: 35, emoji: '⚡ Performance' },
+                accessibility: { score: 93, emoji: '♿ Accessibilite' },
+                'best-practices': { score: 100, emoji: '✅ Bonnes pratiques' },
+                seo: { score: 100, emoji: '🔍 SEO' },
             },
             perfMetrics: [
+                { key: 'CLS', label: 'Cumulative Layout Shift', value: '0,01', score: 1.00, weight: 0.25 },
                 { key:'FCP', label:'First Contentful Paint',   value:'1,4 s',   score:0.87, weight:0.10 },
                 { key:'SI',  label:'Speed Index',              value:'3,1 s',   score:0.72, weight:0.10 },
                 { key:'LCP', label:'Largest Contentful Paint', value:'5,2 s',   score:0.18, weight:0.25 },
-                { key:'TBT', label:'Total Blocking Time',      value:'2 320 ms',score:0.05, weight:0.30 },
-                { key:'CLS', label:'Cumulative Layout Shift',  value:'0,01',    score:1.00, weight:0.25 },
+                { key: 'TBT', label: 'Total Blocking Time', value: '2 320 ms', score: 0.05, weight: 0.30 },
             ],
             errors: {
-                accessibility:    [{ label:'Contraste insuffisant', detail:'3 elements' }],
+                performance: [
+                    'Requêtes de blocage du rendu',
+                    'Utiliser des durées de mise en cache efficaces',
+                    'Améliorer l\'affichage des images',
+                    'Ajustement forcé de la mise en page',
+                    'Arborescence du réseau',
+                    'Ancien JavaScript'
+                ],
+                accessibility: ['3 Contraste insuffisant'],
                 'best-practices': [],
                 seo:              [],
             },
@@ -60,34 +76,7 @@
 
     function sc(s) { return s >= 90 ? C_GOOD : s >= 50 ? C_AVG : C_POOR; }
 
-    // Jauge segmentee (performance)
-    function drawPerf(canvas, metrics, total) {
-        var ctx = canvas.getContext('2d');
-        var W = canvas.width, H = canvas.height;
-        var cx = W/2, cy = H/2, R = 52;
-        var GAP = 0.05, START = -Math.PI*0.75, TOTAL = Math.PI*1.5;
-        ctx.clearRect(0,0,W,H);
-        var angle = START;
-        metrics.forEach(function(m) {
-            var seg = TOTAL * m.weight;
-            var half = GAP/2;
-            var col = m.score >= 0.9 ? C_GOOD : m.score >= 0.5 ? C_AVG : C_POOR;
-            ctx.beginPath(); ctx.arc(cx,cy,R,angle+half,angle+seg-half);
-            ctx.strokeStyle=C_TRACK; ctx.lineWidth=11; ctx.lineCap='round'; ctx.stroke();
-            var fill = (seg - GAP) * m.score;
-            if (fill > 0) {
-                ctx.beginPath(); ctx.arc(cx,cy,R,angle+half,angle+half+fill);
-                ctx.strokeStyle=col; ctx.lineWidth=11; ctx.lineCap='round'; ctx.stroke();
-            }
-            angle += seg;
-        });
-        var tc = sc(total);
-        ctx.font = 'bold 28px Consolas,monospace'; ctx.fillStyle=tc;
-        ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(total,cx,cy-5);
-        ctx.font='11px Consolas,monospace'; ctx.fillStyle='#b0bac3'; ctx.fillText('%',cx,cy+13);
-    }
-
-    // Jauge simple
+    // Jauge simple (utilisee pour toutes les categories)
     function drawSimple(canvas, score) {
         var ctx = canvas.getContext('2d');
         var W = canvas.width, H = canvas.height;
@@ -108,34 +97,21 @@
     }
 
     // Construire la structure d une jauge dans le DOM
-    function buildGauge(id, label, score, sub, details) {
+    // tooltipLines : tableau de strings pour le title / aria-description
+    function buildGauge(id, label, score, sub, tooltipLines) {
         var wrap = document.getElementById(id);
         if (!wrap) return null;
-        var hasDetails = details && details.length > 0;
-        var panelItems = hasDetails
-            ? details.map(function(e){ return '<li>'+e.label+' &mdash; '+e.detail+'</li>'; }).join('')
-            : '';
+        // Tooltip natif (survol clavier / souris)
+        var tipText = tooltipLines && tooltipLines.length
+            ? tooltipLines.join('\n')
+            : label + ' : ' + score + '/100';
         wrap.innerHTML =
-            '<span class="perf-gauge__name">'+label+'</span>'+
-            '<canvas class="perf-gauge__canvas" width="140" height="140" aria-hidden="true"></canvas>'+
-            '<span class="perf-gauge__sub">'+sub+'</span>'+
-            (hasDetails
-                ? '<button class="perf-gauge__toggle" aria-expanded="false" aria-controls="panel-'+id+'" type="button">'+
-                  '&#9660; Détails</button>'+
-                  '<ul class="perf-gauge__panel" id="panel-'+id+'" role="list" hidden>'+panelItems+'</ul>'
-                : '');
-        wrap.setAttribute('aria-label', label+' : '+score+'/100');
+            '<span class="perf-gauge__name">' + label + '</span>' +
+            '<canvas class="perf-gauge__canvas" width="140" height="140" aria-hidden="true" title="' +
+            tipText.replace(/"/g, '&quot;') + '"></canvas>' +
+            '<span class="perf-gauge__sub">' + sub + '</span>';
+        wrap.setAttribute('aria-label', label + ' : ' + score + '/100. Survolez le graphe pour les d&eacute;tails.');
         wrap.classList.remove('perf-gauge--loading');
-        var btn = wrap.querySelector('.perf-gauge__toggle');
-        if (btn) {
-            btn.addEventListener('click', function() {
-                var panel = wrap.querySelector('.perf-gauge__panel');
-                var open = btn.getAttribute('aria-expanded') === 'true';
-                btn.setAttribute('aria-expanded', !open);
-                btn.innerHTML = (open ? '&#9660;' : '&#9650;') + ' D&eacute;tails';
-                if (panel) panel.hidden = open;
-            });
-        }
         return wrap.querySelector('canvas');
     }
 
@@ -147,35 +123,46 @@
         var errs = d.errors;
         var tbt  = mets.filter(function(m){return m.key==='TBT';})[0];
 
-        // Performance
-        var c0 = buildGauge('gauge-performance','Performance',cats.performance.score,
-            'TBT : '+(tbt?tbt.value:'—'),
+        // Performance -- jauge simple + tooltip metriques + erreurs
+        var perfTooltip = ['── Métriques ──'].concat(
             mets.map(function(m){
-                var icon = m.score>=0.9?'&#10003;':m.score>=0.5?'&#9888;':'&#10007;';
-                return { label: icon+' '+m.key+' &mdash; '+m.label+' : '+m.value, detail:'' };
-            }).map(function(x){ return { label: x.label.replace(' &mdash; ',' — '), detail:'' }; })
+                var icon = m.score >= 0.9 ? '\u2713' : m.score >= 0.5 ? '\u26a0' : '\u2717';
+                return icon + ' ' + m.key + ' : ' + m.value + '  (poids ' + m.weight + ')';
+            })
+        ).concat(['── Problèmes ──']).concat(
+            errs.performance.map(function (e) { return '\u2717 ' + e; })
         );
-        if (c0) drawPerf(c0, mets, cats.performance.score);
+        var c0 = buildGauge('gauge-performance', cats.performance.emoji, cats.performance.score,
+            'TBT : ' + (tbt ? tbt.value : '\u2014'),
+            perfTooltip
+        );
+        if (c0) drawSimple(c0, cats.performance.score);
 
         // Accessibilite
         var a = cats.accessibility;
-        var c1 = buildGauge('gauge-accessibility','Accessibilit\u00e9',a.score,
-            errs.accessibility.length+' erreur'+(errs.accessibility.length>1?'s':''),
-            errs.accessibility
+        var accTooltip = [].concat(errs.accessibility.length
+            ? ['── Problèmes ──'].concat(errs.accessibility.map(function (e) { return '\u2717 ' + e; }))
+            : ['\u2713 Aucune erreur détectée']
+        );
+        var c1 = buildGauge('gauge-accessibility', cats.accessibility.emoji, a.score,
+            errs.accessibility.length + ' erreur' + (errs.accessibility.length > 1 ? 's' : ''),
+            accTooltip
         );
         if (c1) drawSimple(c1, a.score);
 
         // Best Practices
         var bp = cats['best-practices'];
-        var c2 = buildGauge('gauge-best-practices','Bonnes pratiques',bp.score,'0 erreur',[]);
+        var c2 = buildGauge('gauge-best-practices', cats['best-practices'].emoji, bp.score,
+            '0 erreur', ['\u2713 Aucune erreur détectée']);
         if (c2) drawSimple(c2, bp.score);
 
         // SEO
-        var c3 = buildGauge('gauge-seo','SEO',cats.seo.score,'0 erreur',[]);
+        var c3 = buildGauge('gauge-seo', cats.seo.emoji, cats.seo.score,
+            '0 erreur', ['\u2713 Aucune erreur détectée']);
         if (c3) drawSimple(c3, cats.seo.score);
 
         var notice = document.getElementById('perf-notice');
-        if (notice) notice.textContent = 'Rapport Lighthouse '+d.date+' \u00b7 '+strategy.charAt(0).toUpperCase()+strategy.slice(1)+' v13.3.0';
+        if (notice) notice.textContent = 'Scores Lighthouse v10 du ' + d.date + ', ';
         var mc = document.getElementById('perf-metrics');
         if (mc) mc.innerHTML = '';
     }
