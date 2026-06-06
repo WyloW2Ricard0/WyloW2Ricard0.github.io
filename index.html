@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mnémosyne — Consulting &amp; Solutions Logicielles</title>
+    <title>Mnémosyne — Solutions Logicielles</title>
     <meta name="description"
         content="Mnémosyne — Consultant programmeur-statisticien. Solutions logicielles sur mesure : applications Electron et Excel. Sciences, Données, Solutions." />
     <link rel="icon" type="image/x-icon" href="assets/img/logo_SP_contour_20250831.ico" />
@@ -112,17 +112,18 @@
 
                 <!-- PERFORMANCE DU SITE — PageSpeed Insights API -->
                 <div class="perf-section">
-                    <h3 class="perf-section__title">📡 Performance du site <span class="perf-strategy" id="perf-strategy-label">—
-                            Desktop</span></h3>
-                    <p class="perf-section__sub">Scores Lighthouse en temps réel via <a
-                            href="https://developers.google.com/speed/docs/insights/v5/about" target="_blank"
-                            rel="noopener noreferrer">PageSpeed Insights API</a>.</p>
-                    <div class="perf-toggle">
-                        <button class="perf-btn perf-btn--active" id="btn-desktop" data-strategy="desktop">🖥️ Desktop</button>
-                        <button class="perf-btn" id="btn-mobile" data-strategy="mobile">📱 Mobile</button>
+                    <div class="perf-section__header">
+                        <div class="perf-section__heading">
+                            <h3 class="perf-section__title">📡 Performance du site <span class="perf-strategy" id="perf-strategy-label">— Desktop</span></h3>
+                            <p class="perf-section__sub">Scores Lighthouse via <a
+                                    href="https://developers.google.com/speed/docs/insights/v5/about" target="_blank"
+                                    rel="noopener noreferrer">PageSpeed Insights API</a>.</p>
+                        </div>
+                        <div class="perf-toggle">
+                            <button class="perf-btn perf-btn--active" id="btn-desktop" data-strategy="desktop">🖥️ Desktop</button>
+                            <button class="perf-btn" id="btn-mobile" data-strategy="mobile">📱 Mobile</button>
+                        </div>
                     </div>
-                    <p class="perf-notice" id="perf-notice">Chargement des scores en cours…</p>
-                    <div class="perf-metrics" id="perf-metrics"></div>
                     <div class="perf-gauges" id="perf-gauges">
                         <div class="perf-gauge perf-gauge--loading" id="gauge-performance">
                             <canvas class="perf-gauge__canvas" width="120" height="120"></canvas>
@@ -153,6 +154,8 @@
                             </div>
                         </div>
                     </div>
+                    <div class="perf-metrics" id="perf-metrics"></div>
+                    <p class="perf-notice" id="perf-notice">Chargement des scores en cours…</p>
                 </div>
 
             </div>

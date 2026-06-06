@@ -1089,9 +1089,22 @@ img {
     border-top: 1px solid var(--color-border);
 }
 
+.perf-section__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.perf-section__heading {
+    flex: 1;
+}
 .perf-section__title {
     font-family: var(--font-title);
     font-size: 1.2rem;
+    font-weight: 500;
     letter-spacing: 0.06em;
     color: var(--color-white);
     margin-bottom: 0.25rem;
@@ -1106,7 +1119,7 @@ img {
 .perf-section__sub {
     font-size: 0.875rem;
     color: var(--color-muted);
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
 }
 
 .perf-section__sub a {
@@ -1116,7 +1129,8 @@ img {
 .perf-toggle {
     display: flex;
     gap: 0.75rem;
-    margin-bottom: 2rem;
+    flex-shrink: 0;
+        align-self: center;
 }
 
 .perf-btn {
@@ -1192,13 +1206,30 @@ img {
     text-align: center;
 }
 
-/* Métriques détaillées */
+/* Métriques détaillées — style stripe-notice */
+.perf-metrics {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: var(--color-surface2);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-violet);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--color-muted);
+}
+
+.perf-metrics:empty {
+    display: none;
+}
 .perf-metrics__grid {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
     justify-content: center;
-    margin-bottom: 1rem;
+    margin-top: 2rem;
+        max-width: 700px;
 }
 
 .perf-metric {
@@ -1245,11 +1276,19 @@ img {
 }
 
 .perf-notice {
+    display: block;
+        width: fit-content;
+        max-width: 100%;
+        margin: 2rem auto;
     text-align: center;
+    background: var(--color-surface2);
+        border: 1px solid var(--color-border);
+        border-left: 3px solid var(--color-accent);
+        border-radius: var(--radius);
+        padding: 0.75rem 1.25rem;
     font-size: 0.8rem;
     color: var(--color-muted);
     font-family: var(--font-mono);
-    margin-top: 1rem;
 }
 /* ===================================================
    CONTACT — code-window + formulaire
