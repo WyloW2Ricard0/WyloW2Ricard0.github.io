@@ -149,34 +149,10 @@
                         </div>
                     </div>
                     <div class="perf-gauges" id="perf-gauges">
-                        <div class="perf-gauge perf-gauge--loading" id="gauge-performance">
-                            <canvas class="perf-gauge__canvas" width="120" height="120"></canvas>
-                            <div class="perf-gauge__info">
-                                <span class="perf-gauge__score">--</span>
-                                <span class="perf-gauge__label">⚡ Performance</span>
-                            </div>
-                        </div>
-                        <div class="perf-gauge perf-gauge--loading" id="gauge-accessibility">
-                            <canvas class="perf-gauge__canvas" width="120" height="120"></canvas>
-                            <div class="perf-gauge__info">
-                                <span class="perf-gauge__score">--</span>
-                                <span class="perf-gauge__label">♿ Accessibilité</span>
-                            </div>
-                        </div>
-                        <div class="perf-gauge perf-gauge--loading" id="gauge-best-practices">
-                            <canvas class="perf-gauge__canvas" width="120" height="120"></canvas>
-                            <div class="perf-gauge__info">
-                                <span class="perf-gauge__score">--</span>
-                                <span class="perf-gauge__label">✅ Bonnes pratiques</span>
-                            </div>
-                        </div>
-                        <div class="perf-gauge perf-gauge--loading" id="gauge-seo">
-                            <canvas class="perf-gauge__canvas" width="120" height="120"></canvas>
-                            <div class="perf-gauge__info">
-                                <span class="perf-gauge__score">--</span>
-                                <span class="perf-gauge__label">🔍 SEO</span>
-                            </div>
-                        </div>
+                        <div class="perf-gauge perf-gauge--loading" id="gauge-performance"></div>
+                        <div class="perf-gauge perf-gauge--loading" id="gauge-accessibility"></div>
+                        <div class="perf-gauge perf-gauge--loading" id="gauge-best-practices"></div>
+                        <div class="perf-gauge perf-gauge--loading" id="gauge-seo"></div>
                     </div>
                     <div class="perf-metrics" id="perf-metrics"></div>
                     <p class="perf-notice" id="perf-notice">Chargement des scores en cours…</p>
@@ -307,12 +283,13 @@
         </div>
     </div>
 
-    <script src="core/catalog.js"></script>
-    <script src="adapters/github.js"></script>
-    <script src="adapters/stripe.js"></script>
-    <script src="assets/js/diagrams.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="core/catalog.js" defer></script>
+    <script src="adapters/github.js" defer></script>
+    <script src="adapters/stripe.js" defer></script>
+    <script src="assets/js/diagrams.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js" defer></script>
+    <script src="assets/js/main.js" defer></script>
+    <script src="assets/js/perf.js" defer></script>
     <script src="assets/js/perf.js"></script>
     </body>
 
