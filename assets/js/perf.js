@@ -11,60 +11,62 @@
         desktop: {
             date: '06/06/2026',
             categories: {
-                performance: { score: 58, emoji: '⚡ Performance' },
-                accessibility: { score: 93, emoji: '♿ Accessibilite' },
-                'best-practices': { score: 100, emoji: '✅ Bonnes pratiques' },
+                performance: { score: 63, emoji: '⚡ Performance' },
+                accessibility: { score: 96, emoji: '♿ Accessibilite' },
+                practices: { score: 100, emoji: '✅ Pratiques' },
                 seo: { score: 100, emoji: '🔍 SEO' },
             },
             // Poids Lighthouse v13 desktop
             perfMetrics: [
                 { key: 'CLS', label: 'Cumulative Layout Shift', value: '0,01', score: 1.00, weight: 0.25 },
-                { key:'FCP', label:'First Contentful Paint',   value:'0,7 s',   score:0.97, weight:0.10 },
-                { key:'SI',  label:'Speed Index',              value:'1,2 s',   score:0.95, weight:0.10 },
-                { key:'LCP', label:'Largest Contentful Paint', value:'2,4 s',   score:0.50, weight:0.25 },
-                { key: 'TBT', label: 'Total Blocking Time', value: '977 ms', score: 0.22, weight: 0.30 },
+                { key: 'FCP', label: 'First Contentful Paint', value: '688 ms', score: 0.98, weight: 0.10 },
+                { key: 'SI', label: 'Speed Index', value: '1 257 ms', score: 0.92, weight: 0.10 },
+                { key: 'LCP', label: 'Largest Contentful Paint', value: '1 690 ms', score: 0.74, weight: 0.25 },
+                { key: 'TBT', label: 'Total Blocking Time', value: '1 188 ms', score: 0.03, weight: 0.30 },
             ],
             errors: {
                 performance: [
-                    'Requêtes de blocage du rendu',
-                    'Utiliser des durées de mise en cache efficaces',
-                    'Améliorer l\'affichage des images',
-                    'Ajustement forcé de la mise en page',
-                    'Arborescence du réseau',
-                    'Ancien JavaScript'
+                    'Utiliser des durées de mise en cache efficaces (255 Kio)',
+                    'Améliorer l\'affichage des images (WebP, AVIF)',
+                    'Ajustement forcé de la mise en page (mermaid.js)',
+                    'Arborescence du réseau (stripe inutiles)',
+                    'Requêtes de blocage du rendu (tailwind.css)',
+                    'Ancien JavaScript (7 Kio)',
                 ],
-                accessibility: ['3 Contraste insuffisant'],
-                'best-practices': [],
+                accessibility: ['Les couleurs d\'arrière-plan et de premier plan ne sont pas suffisamment contrastées.'],
+                practices: [],
                 seo:              [],
             },
         },
         mobile: {
             date: '06/06/2026',
             categories: {
-                performance: { score: 70, emoji: '⚡ Performance' },
-                accessibility: { score: 93, emoji: '♿ Accessibilite' },
-                'best-practices': { score: 100, emoji: '✅ Bonnes pratiques' },
+                performance: { score: 41, emoji: '⚡ Performance' },
+                accessibility: { score: 100, emoji: '♿ Accessibilite' },
+                practices: { score: 100, emoji: '✅ Pratiques' },
                 seo: { score: 100, emoji: '🔍 SEO' },
             },
             perfMetrics: [
-                { key: 'CLS', label: 'Cumulative Layout Shift', value: '0,09', score: 0.92, weight: 0.25 },
-                { key: 'FCP', label: 'First Contentful Paint', value: '2 558 ms', score: 0.66, weight: 0.10 },
-                { key: 'SI', label: 'Speed Index', value: '3 073 ms', score: 0.93, weight: 0.10 },
-                { key: 'LCP', label: 'Largest Contentful Paint', value: '2 708 ms', score: 0.86, weight: 0.25 },
-                { key: 'TBT', label: 'Total Blocking Time', value: '912 ms', score: 0.31, weight: 0.30 },
+                { key: 'CLS', label: 'Cumulative Layout Shift', value: '0,00', score: 1, weight: 0.25 },
+                { key: 'FCP', label: 'First Contentful Paint', value: '7 108 ms', score: 0.02, weight: 0.10 },
+                { key: 'SI', label: 'Speed Index', value: '7 108 ms', score: 0.31, weight: 0.10 },
+                { key: 'LCP', label: 'Largest Contentful Paint', value: '7 939 ms', score: 0.03, weight: 0.25 },
+                { key: 'TBT', label: 'Total Blocking Time', value: '724 ms', score: 0.41, weight: 0.30 },
             ],
             errors: {
                 performance: [
-                    'Requêtes de blocage du rendu',
-                    'Utiliser des durées de mise en cache efficaces',
-                    'Améliorer l\'affichage des images',
-                    'Ajustement forcé de la mise en page',
-                    'Arborescence du réseau',
-                    'Ancien JavaScript'
+                    'Utiliser des durées de mise en cache efficaces (255Kio)',
+                    'Améliorer l\'affichage des images (AVIF, 150Kio)',
+                    'Ancien JavaScript (7Kio)',
+                    'Réduisez la taille des ressources CSS (style.css, 2Kio)',
+                    'Ajustement forcé de la mise en page (mermaid.js)',
+                    'Détection de la requête LCP (fibonacci)',
+                    'Arborescence du réseau (github.js)',
+                    'Requêtes de blocage du rendu (use tailwind.css)'
                 ],
-                accessibility: ['3 Contraste insuffisant'],
-                'best-practices': [],
-                seo:              [],
+                accessibility: [],
+                practices: [],
+                seo: [],
             },
         },
     };
@@ -142,7 +144,7 @@
         var a = cats.accessibility;
         var accTooltip = [].concat(errs.accessibility.length
             ? ['── Problèmes ──'].concat(errs.accessibility.map(function (e) { return '\u2717 ' + e; }))
-            : ['\u2713 Aucune erreur détectée']
+            : ['✅ Aucune erreur détectée']
         );
         var c1 = buildGauge('gauge-accessibility', cats.accessibility.emoji, a.score,
             errs.accessibility.length + ' erreur' + (errs.accessibility.length > 1 ? 's' : ''),
@@ -151,14 +153,13 @@
         if (c1) drawSimple(c1, a.score);
 
         // Best Practices
-        var bp = cats['best-practices'];
-        var c2 = buildGauge('gauge-best-practices', cats['best-practices'].emoji, bp.score,
-            '0 erreur', ['\u2713 Aucune erreur détectée']);
-        if (c2) drawSimple(c2, bp.score);
+        var c2 = buildGauge('gauge-best-practices', cats.practices.emoji, cats.practices.score,
+            '0 erreur', ['✅ Aucune erreur détectée']);
+        if (c2) drawSimple(c2, cats.practices.score);
 
         // SEO
         var c3 = buildGauge('gauge-seo', cats.seo.emoji, cats.seo.score,
-            '0 erreur', ['\u2713 Aucune erreur détectée']);
+            '0 erreur', ['✅ Aucune erreur détectée']);
         if (c3) drawSimple(c3, cats.seo.score);
 
         var notice = document.getElementById('perf-notice');
