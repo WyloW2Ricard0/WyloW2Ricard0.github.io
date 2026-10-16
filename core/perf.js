@@ -7,70 +7,7 @@
     'use strict';
 
     // Donnees figees -- plus d API
-    const DATA = {
-        desktop: {
-            date: '06/06/2026',
-            categories: {
-                performance: { score: 63, emoji: '⚡ Performance' },
-                accessibility: { score: 96, emoji: '♿ Accessibilite' },
-                practices: { score: 100, emoji: '✅ Pratiques' },
-                seo: { score: 100, emoji: '🔍 SEO' },
-            },
-            // Poids Lighthouse v13 desktop
-            perfMetrics: [
-                { key: 'CLS', label: 'Cumulative Layout Shift', value: '0,01', score: 1.00, weight: 0.25 },
-                { key: 'FCP', label: 'First Contentful Paint', value: '688 ms', score: 0.98, weight: 0.10 },
-                { key: 'SI', label: 'Speed Index', value: '1 257 ms', score: 0.92, weight: 0.10 },
-                { key: 'LCP', label: 'Largest Contentful Paint', value: '1 690 ms', score: 0.74, weight: 0.25 },
-                { key: 'TBT', label: 'Total Blocking Time', value: '1 188 ms', score: 0.03, weight: 0.30 },
-            ],
-            errors: {
-                performance: [
-                    'Utiliser des durées de mise en cache efficaces (255 Kio)',
-                    'Améliorer l\'affichage des images (WebP, AVIF)',
-                    'Ajustement forcé de la mise en page (mermaid.js)',
-                    'Arborescence du réseau (stripe inutiles)',
-                    'Requêtes de blocage du rendu (tailwind.css)',
-                    'Ancien JavaScript (7 Kio)',
-                ],
-                accessibility: ['Les couleurs d\'arrière-plan et de premier plan ne sont pas suffisamment contrastées.'],
-                practices: [],
-                seo:              [],
-            },
-        },
-        mobile: {
-            date: '06/06/2026',
-            categories: {
-                performance: { score: 41, emoji: '⚡ Performance' },
-                accessibility: { score: 100, emoji: '♿ Accessibilite' },
-                practices: { score: 100, emoji: '✅ Pratiques' },
-                seo: { score: 100, emoji: '🔍 SEO' },
-            },
-            perfMetrics: [
-                { key: 'CLS', label: 'Cumulative Layout Shift', value: '0,00', score: 1, weight: 0.25 },
-                { key: 'FCP', label: 'First Contentful Paint', value: '7 108 ms', score: 0.02, weight: 0.10 },
-                { key: 'SI', label: 'Speed Index', value: '7 108 ms', score: 0.31, weight: 0.10 },
-                { key: 'LCP', label: 'Largest Contentful Paint', value: '7 939 ms', score: 0.03, weight: 0.25 },
-                { key: 'TBT', label: 'Total Blocking Time', value: '724 ms', score: 0.41, weight: 0.30 },
-            ],
-            errors: {
-                performance: [
-                    'Utiliser des durées de mise en cache efficaces (255Kio)',
-                    'Améliorer l\'affichage des images (AVIF, 150Kio)',
-                    'Ancien JavaScript (7Kio)',
-                    'Réduisez la taille des ressources CSS (style.css, 2Kio)',
-                    'Ajustement forcé de la mise en page (mermaid.js)',
-                    'Détection de la requête LCP (fibonacci)',
-                    'Arborescence du réseau (github.js)',
-                    'Requêtes de blocage du rendu (use tailwind.css)'
-                ],
-                accessibility: [],
-                practices: [],
-                seo: [],
-            },
-        },
-    };
-
+    const DATA = fetch('/assets/js/perf.json').then(response => response.json());
     const C_GOOD  = '#4A9EFF';
     const C_AVG   = '#F5C342';
     const C_POOR  = '#f85149';

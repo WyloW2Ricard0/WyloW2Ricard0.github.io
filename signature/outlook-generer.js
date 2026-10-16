@@ -1,14 +1,29 @@
 /// Outlook ne supporte pas CSS et les scripts dynamique.
 /// Donc on ecrit un script pour generer un .htm static
 
+/// comande pour le lancement :
+/// node .\signature\outlook-generer.js
+
 const fs = require('fs');
+const path = require('path');
+
+const baseDir = __dirname;
 
 console.log('🚀 Génération signature Outlook...\n');
 
 /// 1. LIRE LES FICHIERS
-const config = JSON.parse(fs.readFileSync('signature.json', 'utf8'));
-const css = fs.readFileSync('signature.css', 'utf8');
-let html = fs.readFileSync('signature.html', 'utf8');
+const config = JSON.parse(fs.readFileSync(path.join(baseDir, '..', 'assets', 'core', 'placeholders.json'), 'utf8'));
+
+const cssDir = path.join(baseDir, '..', 'assets', 'css');
+const cssFiles = fs.readdirSync(cssDir).filter(file => file.toLowerCase().endsWith('.css')).sort();
+const css = cssFiles.map(file => fs.readFileSync(path.join(cssDir, file), 'utf8')).join('\n');
+if (!cssFiles.length) {
+  console.error('❌ Aucun fichier CSS trouvé dans assets/css');
+  process.exit(1);
+}
+console.log(`✓ ${cssFiles.length} fichiers CSS chargés`);
+
+let html = fs.readFileSync(path.join(baseDir, 'signature.html'), 'utf8');
 
 /// 1bis. EXTRAIRE UNIQUEMENT LA TABLE
 const tableMatch = html.match(/<table[^>]*>[\s\S]*?<\/table>/i);
@@ -46,25 +61,27 @@ html = html.replace(tagRegex, (match, tag, attrs) => {
   attrs = attrs.replace(/\s+/g, ' ').trim();
   const classMatch = attrs.match(/\s*class="([^"]*)"/);
   const styleMatch = attrs.match(/\s*style="([^"]*)"/);
-  
+
   let cleanAttrs = attrs.replace(/\s*class="[^"]*"/, '').replace(/\s*style="[^"]*"/, '').trim();
-  
+
   /// ✅ Collecter styles (tag + classes + style existant)
   const allStyles = [
     classStyles[tag],
     ...(classMatch ? classMatch[1].split(/\s+/).filter(c => c && classStyles[c]).map(c => classStyles[c]) : []),
     styleMatch ? styleMatch[1].trim().replace(/;+$/, '') : ''
   ].filter(s => s).map(s => s.trim().replace(/;+$/, ''));
-  
-  return allStyles.length 
+
+  return allStyles.length
     ? `<${tag}${cleanAttrs ? ' ' + cleanAttrs : ''} style="\n  ${allStyles.join('\n  ; ')}">`
     : `<${tag}${cleanAttrs ? ' ' + cleanAttrs : ''}>`;
 });
 console.log('✓ Balises traitées');
 
 /// 5. REMPLACER PLACEHOLDERS
-const { replaceHtmlNode } = require('./signature.js');
-html = replaceHtmlNode(html, config);
+const tlphnHref = (config.tlphn || '').replace(/\s/g, '');
+Object.entries({ ...config, tlphn_href: tlphnHref }).forEach(([k, v]) => {
+  html = html.replaceAll(`{{${k}}}`, v);
+});
 console.log('✓ Placeholders JSON remplacés');
 
 /// 6. REMPLACER VARIABLES CSS
@@ -93,5 +110,5 @@ html = html.replace(/\s*class=""/g, '').replace(/\s+style=""/g, '');
 console.log('✓ Attributs vides nettoyés');
 
 /// 9. ÉCRIRE
-fs.writeFileSync('outlook-generer.htm', html);
+fs.writeFileSync(path.join(baseDir, 'outlook-generer.htm'), html);
 console.log('\n✅ Fichier généré : outlook-generer.htm\n');

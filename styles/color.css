@@ -1,0 +1,26 @@
+/* ===== SÉMANTIQUES ===== */
+.color-attribute {    color: var(--color-orange); }
+.color-class {        color: var(--color-bleu); }
+.color-comment {      color: var(--color-l3); font-style: italic; }
+.color-constant {     color: var(--color-purple); }
+.color-control {      color: var(--color-rouge); }
+.color-function {     color: var(--color-vert); }
+.color-heading {      color: var(--color-bleu); }
+.color-inserted {     color: var(--color-vert); }
+.color-keyword {      color: var(--color-rouge); }
+.color-language {     color: var(--color-purple); }
+.color-macro {        color: var(--color-vert); }
+.color-namespace {    color: var(--color-bleu); }
+.color-numeric {      color: var(--color-purple); }
+.color-operator {     color: var(--color-l4); }
+.color-parameter {    color: var(--color-orange); }
+.color-punctuation {  color: var(--color-l4); }
+.color-section {      color: var(--color-bleu); }
+.color-source {       color: var(--color-jaune); font-style: italic; }
+.color-string {       color: var(--color-jaune); }
+.color-storage {      color: var(--color-rouge); }
+.color-substitution { color: var(--color-orange); }
+.color-tag {          color: var(--color-rouge); }
+.color-text {         color: var(--color-l5); }
+.color-type {         color: var(--color-bleu);  font-style: italic; }
+.color-variable {     color: var(--color-l5);    font-style: italic; }

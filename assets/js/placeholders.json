@@ -1,0 +1,28 @@
+{
+  "perso": {
+    "dplcm": "Gironde & Landes",
+    "email": "wylow.entreprise.kl3dd@aleeas.com",
+    "entrp": "Gesty-Info",
+    "githb": "https://github.com/WyloW2Ricard0",
+    "licdn": "https://www.linkedin.com/in/wifried-richard/",
+    "logo": "assets/img/logo_SP_contour_20250831.ico",
+    "metir": "Programmeur statisticien",
+    "nom": "RICHARD",
+    "persn": "https://media.licdn.com/dms/image/v2/D4E35AQGCM5q2cb-teA/profile-framedphoto-shrink_200_200/B4EaE.89f1GoAQ-/0/1792057531181?e=1792663200&v=beta&t=Wa24-JXuNF1p6-aZ36XPhA1_wCCNJE4lkv_ZasWbcBc",
+    "prenm": "Wilfried",
+    "surnm": "WyloW2Ricard0",
+    "tlphn": "+33 6 37 30 46 24",
+    "webst": "https://wylow2ricard0.github.io"
+  },
+  "param": {
+    "css": "styles/root.css",
+    "font": "https://fonts.googleapis.com/css2?family=Bungee&family=JetBrains+Mono:wght@400;600&display=swap",
+    "section": {
+      "about": "Profil",
+      "expertise": "Expertise",
+      "performance": "Performance",
+      "products": "Applications",
+      "contact": "Contact"
+    }
+  }
+}

@@ -1,0 +1,125 @@
+# =============================================================================
+# EditorConfig — Configuration universelle des éditeurs de code
+# =============================================================================
+#
+# 📖 QU'EST-CE QUE EDITORCONFIG ?
+#
+# EditorConfig aide à maintenir des styles de codage cohérents entre différents
+# éditeurs et IDE pour plusieurs développeurs travaillant sur le même projet.
+#
+# ✅ AVANTAGES :
+#   - Uniformise l'indentation, encodage, fin de ligne
+#   - Fonctionne avec 40+ éditeurs (VS Code, IntelliJ, Sublime, Vim, etc.)
+#   - Réduit les conflits Git liés au formatage
+#   - Améliore la lisibilité du code
+#   - Évite les erreurs subtiles (espaces vs tabs, CRLF vs LF)
+#
+# 🔧 INSTALLATION :
+#   - [VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) : intégré nativement (Shift+Alt+F)
+#   - IntelliJ/WebStorm : intégré nativement
+#   - [Sublime Text]( https://packagecontrol.io/packages/EditorConfig) : installer plugin EditorConfig :
+#   - [Vim](https://github.com/editorconfig/editorconfig-vim) : installer plugin editorconfig-vim
+#   - [Atom](https://atom.io/packages/editorconfig) : installer editorconfig package
+#
+# 📍 EMPLACEMENT :
+#   - Racine du projet : .editorconfig
+#   - Appliqué récursivement à tous les sous-dossiers
+#   - Fichiers .editorconfig dans sous-dossiers peuvent surcharger
+#
+# 🔍 DEBUGGING :
+#   1. Vérifier que root = true est présent
+#   2. Vérifier l'installation du plugin/support éditeur
+#   3. Recharger l'éditeur après modification .editorconfig
+#   4. Vérifier les logs de l'éditeur (éventuelles erreurs parsing)
+#   5. Tester avec un fichier simple (créer nouveau fichier .js)
+#
+# LIMITES D'EDITORCONFIG
+#   ❌ Ne remplace pas les formatters (Prettier, Black, rustfmt)
+#   ❌ Ne valide pas le code (utiliser linters : ESLint, Pylint)
+#   ❌ Règles limitées (pas de conventions de nommage, etc.)
+#   ✅ Complémentaire : EditorConfig pour base, formatters pour détails
+#
+# INTÉGRATION AVEC FORMATTERS
+#   • Prettier (JS/TS) : respecte EditorConfig automatiquement
+#   • Black (Python) : ignorer line_length (utilise pyproject.toml)
+#   • rustfmt : utilise rustfmt.toml
+#   💡 EditorConfig = base commune, formatters = règles avancées
+#
+# =============================================================================
+# 📚 RESSOURCES
+#
+# Documentation :
+#   - Site officiel : https://editorconfig.org
+#   - Spécification : https://spec.editorconfig.org
+#   - Propriétés : https://github.com/editorconfig/editorconfig/wiki/EditorConfig-Properties
+#   - Support éditeurs : https://editorconfig.org/#download
+#
+# Exemples de projets :
+#   - Node.js : https://github.com/nodejs/node/blob/main/.editorconfig
+#   - Django : https://github.com/django/django/blob/main/.editorconfig
+#   - React : https://github.com/facebook/react/blob/main/.editorconfig
+#
+# =============================================================================
+#
+# Licence : CC0 (Domaine Public) — Adaptez librement
+# Version de ce fichier : 2.0
+# Dernière mise à jour :
+#   - 2026-10-15 WyloW2Ricard0: supretion parametre qui fait doublon avec ceux par default
+#
+# =============================================================================
+
+# Indique que c'est le fichier EditorConfig racine (ne pas chercher au-dessus)
+root = true
+
+# 🌍 RÈGLES PAR DÉFAUT (tous les fichiers)
+[*]
+# Encodage support universel des caractères : UTF-8 (support international, émojis, accents)
+charset = utf-8
+
+# Fin de ligne : LF (Unix/Mac) — standard universel
+# Alternatives : crlf (Windows), cr (Mac ancien)
+# 💡 Git peut convertir automatiquement (core.autocrlf)
+end_of_line = lf
+
+# Toujours terminer les fichiers par une ligne vide
+#   ✅ POSIX standard : fichiers texte doivent finir par \n
+#   ✅ Git diff : évite le message "No newline at end of file"
+#   ✅ Outils Unix (cat, grep) : comptent sur cette convention
+insert_final_newline = true
+
+# Supprimer les espaces en fin de ligne (trailing whitespace)
+# ✅ Réduit les conflits Git, améliore lisibilité
+trim_trailing_whitespace = true
+
+# Indentation : espaces (pas tabs)
+indent_style = space
+indent_size = 2
+
+# Largeur maximale recommandée (soft limit, pas appliqué automatiquement)
+# 💡 Limite douce (non appliquée par EditorConfig, utiliser linter)
+# PEP 8 (Python) : 79, Google Style : 100, Standard moderne : 120
+max_line_length = 120
+
+# single ou double (Prettier : single)
+quote_type = double
+
+# 🔷 Conventions C# (Microsoft)
+[*.cs]
+csharp_new_line_before_open_brace = all
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+
+# 🖼️ FICHIERS BINAIRES (ne pas modifier)
+[*.{csv,tsv,png,jpg,jpeg,gif,ico,svg,woff,woff2,ttf,eot,mp4,mp3,pdf,zip,tar,gz}]
+# Ne rien modifier (fichiers binaires)
+insert_final_newline = false
+trim_trailing_whitespace = false
+
+# 🔧 FICHIERS CONFIGURATION SPÉCIAUX
+# .gitignore, .dockerignore : pas d'indentation
+[{requirements*.txt,Pipfile,Pipfile.lock,.gitignore,.dockerignore,.gitattributes,.editorconfig}]
+indent_size = 0
+# nécessaire pour scripts
+[*.{ps1,psm1,psd1, bat}]
+end_of_line = crlf

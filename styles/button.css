@@ -1,0 +1,16 @@
+
+.bn-primary { @apply
+  px-4 py-2 bg-blue-500
+  text-white font-bold rounded
+  hover:bg-blue-600 transition;
+}
+.bn-secondary { @apply
+  px-4 py-2 bg-gray-500
+  text-white font-bold rounded
+  hover:bg-gray-600 transition;
+}
+.bn-outline { @apply
+  px-4 py-2 bg-transparent border border-blue-500
+  text-blue-500 font-bold rounded
+  hover:bg-blue-500 hover:text-white transition;
+}
